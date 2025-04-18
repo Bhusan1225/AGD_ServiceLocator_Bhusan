@@ -3,13 +3,12 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using ServiceLocator.Player;
 using ServiceLocator.Events;
+using ServiceLocator.Wave;
 
 namespace ServiceLocator.Map
 {
-    public class MapService : MonoBehaviour
+    public class MapService : GenericMonoSingleton<MapService>
     {
-        public static MapService Instance { get { return instance; } }
-        private static MapService instance;
 
         [SerializeField] private EventService eventService;
         [SerializeField] private MapScriptableObject mapScriptableObject;
@@ -19,17 +18,7 @@ namespace ServiceLocator.Map
         private MapData currentMapData;
         private SpriteRenderer tileOverlay;
 
-        private void Awake()
-        {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
+        
 
         private void Start()
         {

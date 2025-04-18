@@ -7,12 +7,8 @@ using ServiceLocator.Sound;
 
 namespace ServiceLocator.Player
 {
-    public class PlayerService : MonoBehaviour
+    public class PlayerService : GenericMonoSingleton<PlayerService>
     {
-        public static PlayerService Instance { get { return instance; } }
-
-        private static PlayerService instance;
-
          
         //[SerializeField] private UIService uiService;
         //[SerializeField] private MapService mapService;
@@ -29,18 +25,7 @@ namespace ServiceLocator.Player
         public int Money { get; private set; }
 
 
-        private void Awake()
-        {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Destroy(this.gameObject);
-                Debug.LogError(this + " is trying to create the secorn instance");
-            }
-        }
+       
         private void Start()
         {
             projectilePool = new ProjectilePool( playerScriptableObject.ProjectilePrefab, playerScriptableObject.ProjectileScriptableObjects);

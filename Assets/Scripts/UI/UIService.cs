@@ -9,11 +9,8 @@ using ServiceLocator.Player;
 
 namespace ServiceLocator.UI
 {
-    public class UIService : MonoBehaviour
+    public class UIService : GenericMonoSingleton<UIService>
     {
-        public static UIService Instance {get{ return instance; } }
-        private static UIService instance;
-
         [SerializeField] private EventService eventService;
         //[SerializeField] private WaveService waveService;
 
@@ -43,14 +40,7 @@ namespace ServiceLocator.UI
         [SerializeField] private Button playAgainButton;
         [SerializeField] private Button quitButton;
 
-        private void Awake()
-        {
-            if (instance == null) { instance = this; }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
+       
         private void Start()
         {
             monkeySelectionController = new MonkeySelectionUIController( cellContainer, monkeyCellPrefab, monkeyCellScriptableObjects);
