@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ServiceLocator.Main;
+using ServiceLocator.Player;
+using ServiceLocator.Sound;
 
 namespace ServiceLocator.Wave.Bloon
 {
@@ -14,14 +16,20 @@ namespace ServiceLocator.Wave.Bloon
         private int currentHealth;
         private int currentWaypointIndex;
         private BloonState currentState;
-
+        private WaveService waveService;
+        private SoundService soundService;
+        private PlayerService playerService;
         public Vector3 Position => bloonView.transform.position;
 
-        public BloonController(BloonView bloonPrefab, Transform bloonContainer)
+        public BloonController(BloonView bloonPrefab, Transform bloonContainer, WaveService waveService, SoundService soundService, PlayerService playerService)
         {
+            this.waveService = waveService;
+            this.soundService = soundService;
+            this.playerService = playerService;
             bloonView = Object.Instantiate(bloonPrefab, bloonContainer);
             bloonView.Controller = this;
         }
+        
 
         public void Init(BloonScriptableObject bloonScriptableObject)
         {
